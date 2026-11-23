@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indonesia Holiday Creative Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#18243a}
+header{background:#102b52;color:white;padding:22px 6%}
+header h2{margin:0;font-size:21px}
+header p{font-size:12px;color:#cbd8e9}
+.container{max-width:1100px;margin:30px auto;padding:0 20px}
+.hero{background:linear-gradient(120deg,#102b52,#2877c7);color:white;padding:30px;border-radius:15px;margin-bottom:22px}
+.hero h1{font-size:27px;margin:0 0 10px}
+.hero p{color:#dbeafe;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:white;padding:22px;border-radius:13px;box-shadow:0 3px 15px #152c4b0c;margin-bottom:20px}
+h3{margin-top:0}
+label{display:block;font-size:13px;font-weight:bold;margin:16px 0 7px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d9e0ea;border-radius:8px;font-size:14px;background:white}
+button{background:#1768bb;color:white;border:0;border-radius:8px;padding:13px 18px;font-weight:bold;cursor:pointer}
+button:hover{background:#104c91}
+.upload{border:2px dashed #aabbd0;border-radius:10px;padding:25px;text-align:center;background:#f8fafc;cursor:pointer}
+.upload input{margin-top:12px}
+.preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.preview img{width:105px;height:105px;object-fit:cover;border-radius:8px}
+.result{background:#f0f4f9;border-radius:10px;min-height:230px;padding:20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.small{font-size:12px;color:#718096}
+footer{text-align:center;padding:25px;color:#718096;font-size:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}}
+</style>
+</head>
+<body>
+
+<header>
+<h2>✦ HOLIDAY CREATIVE STUDIO</h2>
+<p>AI-Powered Indonesian Holiday Design Generator</p>
+</header>
+
+<main class="container">
+
+<section class="hero">
+<h1>Create Your Holiday Design</h1>
+<p>Buat desain hari besar Indonesia dengan gaya visual dan referensi gambar pilihan Anda.</p>
+</section>
+
+<div class="grid">
+
+<section class="card">
+<h3>01. Design Configuration</h3>
+
+<label>Pilih Hari Besar</label>
+<select id="holiday">
+<option>Hari Kemerdekaan RI</option>
+<option>Hari Kartini</option>
+<option>Hari Raya Idul Fitri</option>
+<option>Hari Raya Natal</option>
+<option>Hari Pancasila</option>
+<option>Hari Waisak</option>
+<option>Tahun Baru Imlek</option>
+</select>
+
+<label>Visual Style</label>
+<select id="style">
+<option>Photorealistic Commercial Photography</option>
+<option>Cinematic Photography</option>
+<option>Editorial Photography</option>
+<option>Corporate Photography</option>
+<option>Premium Advertising Photography</option>
+<option>Natural Lifestyle Photography</option>
+</select>
+
+<label>Format Gambar</label>
+<select id="format">
+<option>Instagram Portrait 1080 x 1350</option>
+<option>Instagram Square 1080 x 1080</option>
+<option>Instagram Story 1080 x 1920</option>
+</select>
+
+<label>Tulisan pada Gambar</label>
+<textarea id="message" rows="3">Selamat Memperingati Hari Besar Indonesia</textarea>
+
+<label>Upload Foto Referensi Wajah (Opsional)</label>
+<input type="file" id="faces" accept="image/*" multiple>
+
+<label>Upload Referensi Visual (Multiple Images)</label>
+<div class="upload">
+📷<br>
+<strong>Pilih gambar referensi Anda</strong>
+<p class="small">JPG, PNG, WEBP</p>
+<input type="file" id="references" accept="image/*" multiple>
+</div>
+
+<div id="gallery" class="preview"></div>
+
+<br>
+<button style="width:100%" onclick="createDesign()">Buat Konsep Desain</button>
+</section>
+
+<section class="card">
+<h3>02. Design Preview</h3>
+<div class="result" id="result">
+<div style="font-size:45px">✦</div>
+<strong>Design Preview</strong>
+<p class="small">Konsep desain Anda akan muncul di sini.</p>
+</div>
+<h3 style="margin-top:22px">03. Design Information</h3>
+<p class="small" id="info">Belum ada desain yang dibuat.</p>
+</section>
+
+</div>
+</main>
+
+<footer>
+Indonesia Holiday Creative Studio © 2026
+</footer>
+
+<script>
+const references=document.getElementById('references');
+const gallery=document.getElementById('gallery');
+
+references.addEventListener('change',function(){
+gallery.innerHTML='';
+Array.from(this.files).forEach(file=>{
+const img=document.createElement('img');
+img.src=URL.createObjectURL(file);
+gallery.appendChild(img);
+});
+});
+
+function createDesign(){
+const holiday=document.getElementById('holiday').value;
+const style=document.getElementById('style').value;
+const format=document.getElementById('format').value;
+const message=document.getElementById('message').value;
+const total=references.files.length;
+
+document.getElementById('result').innerHTML=`
+<div style="font-size:40px">✦</div>
+<strong>Konfigurasi Desain Berhasil Dibuat</strong>
+<p>${holiday}</p>
+<p class="small">${style}</p>
+<p class="small">${format}</p>
+<p class="small">${total} gambar referensi dipilih</p>
+<p>${message}</p>
+`;
+document.getElementById('info').innerText=
+'Konfigurasi berhasil. Mesin AI akan dihubungkan pada tahap integrasi berikutnya.';
+}
+</script>
+</body>
+</html>

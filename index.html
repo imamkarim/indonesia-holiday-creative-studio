@@ -1,154 +1,296 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102b52">
 <title>Indonesia Holiday Creative Studio</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#18243a}
-header{background:#102b52;color:white;padding:22px 6%}
-header h2{margin:0;font-size:21px}
-header p{font-size:12px;color:#cbd8e9}
-.container{max-width:1100px;margin:30px auto;padding:0 20px}
-.hero{background:linear-gradient(120deg,#102b52,#2877c7);color:white;padding:30px;border-radius:15px;margin-bottom:22px}
-.hero h1{font-size:27px;margin:0 0 10px}
-.hero p{color:#dbeafe;line-height:1.6}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.card{background:white;padding:22px;border-radius:13px;box-shadow:0 3px 15px #152c4b0c;margin-bottom:20px}
-h3{margin-top:0}
-label{display:block;font-size:13px;font-weight:bold;margin:16px 0 7px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d9e0ea;border-radius:8px;font-size:14px;background:white}
-button{background:#1768bb;color:white;border:0;border-radius:8px;padding:13px 18px;font-weight:bold;cursor:pointer}
-button:hover{background:#104c91}
-.upload{border:2px dashed #aabbd0;border-radius:10px;padding:25px;text-align:center;background:#f8fafc;cursor:pointer}
-.upload input{margin-top:12px}
-.preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
-.preview img{width:105px;height:105px;object-fit:cover;border-radius:8px}
-.result{background:#f0f4f9;border-radius:10px;min-height:230px;padding:20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column}
-.small{font-size:12px;color:#718096}
-footer{text-align:center;padding:25px;color:#718096;font-size:12px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}}
+:root{--navy:#102b52;--blue:#246fbd;--blue2:#eaf3ff;--ink:#17243a;--muted:#718096;--line:#e2e8f0;--bg:#f4f7fb;--white:#fff;--red:#c53b45;--green:#16845b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;font-size:14px}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{height:68px;background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5;box-shadow:0 3px 14px #0c234022}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#75b7ff,#fff);display:grid;place-items:center;color:var(--navy);font-weight:900;font-size:19px}.brand strong{font-size:15px;letter-spacing:.3px}.brand small{display:block;color:#bdcde1;font-size:10px;margin-top:3px;letter-spacing:1px}
+.top-right{font-size:12px;color:#d6e4f5}.layout{display:grid;grid-template-columns:225px minmax(0,1fr);max-width:1440px;margin:auto;min-height:calc(100vh - 68px)}
+.sidebar{padding:25px 14px;border-right:1px solid var(--line);background:#fff}.nav-label{font-size:10px;color:#94a3b8;font-weight:800;letter-spacing:1.3px;padding:0 12px;margin:8px 0 12px}.nav-btn{width:100%;display:flex;gap:11px;align-items:center;text-align:left;border:0;background:transparent;color:#526176;padding:12px;border-radius:9px;margin:3px 0;font-weight:600}.nav-btn:hover,.nav-btn.active{background:var(--blue2);color:#145ba4}.nav-icon{width:20px;text-align:center;font-size:17px}.sidebar-note{margin:28px 8px 0;padding:13px;border-radius:10px;background:#f5f8fc;color:#738198;font-size:11px;line-height:1.6}
+main{padding:28px;min-width:0}.welcome{background:linear-gradient(115deg,#102b52,#2878c8);color:#fff;border-radius:16px;padding:27px 30px;margin-bottom:22px}.welcome h1{font-size:25px;margin:0 0 8px}.welcome p{margin:0;color:#d9e9fb;line-height:1.6}.eyebrow{font-size:10px;letter-spacing:1.5px;font-weight:800;color:#b8d9ff;margin-bottom:9px}
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin:4px 0 20px}.page-head h2{margin:0 0 6px;font-size:21px}.page-head p{margin:0;color:var(--muted);line-height:1.5}.card{background:#fff;border:1px solid #edf1f6;border-radius:13px;padding:20px;box-shadow:0 3px 15px #19365a08;margin-bottom:17px}.card h3{font-size:15px;margin:0 0 7px}.muted{color:var(--muted)}.small{font-size:12px}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.field{margin-top:15px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#40516a}.input,select,textarea{width:100%;border:1px solid #d8e1ec;border-radius:8px;padding:11px 12px;background:#fff;color:var(--ink);outline:none}.input:focus,select:focus,textarea:focus{border-color:#5b9de1;box-shadow:0 0 0 3px #dcecff}.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:700}.btn:hover{background:#175b9f}.btn.secondary{background:#edf3fa;color:#24476f}.btn.secondary:hover{background:#dfeaf7}.btn.ghost{background:#fff;border:1px solid var(--line);color:#526176}.btn.danger{background:#fff0f0;color:var(--red)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:17px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:17px}.stat{background:#fff;border:1px solid #edf1f6;border-radius:12px;padding:15px}.stat b{font-size:22px;display:block;margin-bottom:3px}.stat span{font-size:11px;color:var(--muted)}
+.dropzone{border:1.5px dashed #a9bfd8;border-radius:11px;background:#f8fbff;padding:25px 15px;text-align:center;cursor:pointer;transition:.15s}.dropzone:hover,.dropzone.drag{border-color:#367fc4;background:#eff7ff}.dropzone .big{font-size:27px;margin-bottom:7px}.dropzone strong{display:block;margin-bottom:5px}.dropzone p{font-size:11px;color:var(--muted);margin:0}.dropzone input{display:none}
+.collection-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}.collection-card{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;cursor:pointer;transition:.15s}.collection-card:hover{border-color:#8ab8e7;transform:translateY(-2px)}.collection-card.selected{border:2px solid #2878c8;box-shadow:0 0 0 3px #dcecff}.collection-cover{height:135px;background:#edf3fa;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;overflow:hidden}.collection-cover img{width:100%;height:135px;object-fit:cover}.collection-cover .empty-cover{grid-column:1/-1;display:grid;place-items:center;color:#91a4ba;font-size:30px}.collection-info{padding:12px}.collection-info strong{display:block;font-size:13px;margin-bottom:5px}.collection-info small{color:var(--muted);font-size:11px}.collection-actions{display:flex;gap:7px;margin-top:10px}
+.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:11px;margin-top:15px}.thumb{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#f5f7fa}.thumb img{display:block;width:100%;height:125px;object-fit:cover}.thumb .thumb-name{padding:7px 8px;font-size:10px;color:#526176;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.remove-thumb{position:absolute;top:6px;right:6px;width:25px;height:25px;border:0;border-radius:50%;background:#fff;color:#b4232d;font-weight:bold;box-shadow:0 1px 5px #0002}
+.empty{padding:30px 15px;text-align:center;border:1px dashed #d5deea;border-radius:10px;color:#8391a5;background:#fafcff}.empty .big{font-size:28px;margin-bottom:7px}
+.notice{padding:12px 14px;border-radius:9px;background:#fff8e8;color:#8a6417;font-size:11px;line-height:1.6;margin-top:13px}.success-note{background:#eaf8f1;color:#176b4c}.hidden{display:none!important}
+.modal-backdrop{position:fixed;inset:0;background:#0c1d33a6;z-index:20;display:grid;place-items:center;padding:18px}.modal{background:white;width:min(480px,100%);border-radius:14px;padding:22px;box-shadow:0 15px 50px #0003}.modal h3{margin:0 0 7px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.preview-img{max-width:100%;max-height:180px;object-fit:contain;border-radius:8px}
+footer{text-align:center;color:#9aa6b6;font-size:11px;padding:22px}
+.toast{position:fixed;bottom:20px;right:20px;background:#173b65;color:white;padding:12px 16px;border-radius:9px;box-shadow:0 5px 20px #0002;z-index:30;max-width:340px;font-size:12px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto;padding:9px;border-right:0;border-bottom:1px solid var(--line);position:sticky;top:68px;z-index:4}.nav-label,.sidebar-note{display:none}.nav-btn{white-space:nowrap;width:auto;margin:0;padding:10px}.grid-2{grid-template-columns:1fr}main{padding:18px}}
+@media(max-width:520px){.topbar{padding:0 15px}.top-right{display:none}.welcome{padding:22px}.welcome h1{font-size:21px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:18px}.page-head{display:block}.page-head .btn{margin-top:12px}}
 </style>
 </head>
 <body>
-
-<header>
-<h2>✦ HOLIDAY CREATIVE STUDIO</h2>
-<p>AI-Powered Indonesian Holiday Design Generator</p>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">✦</div><div><strong>HOLIDAY CREATIVE STUDIO</strong><small>INDONESIA · AI VISUAL WORKSPACE</small></div></div>
+  <div class="top-right">Phase 2 · Visual Reference Library</div>
 </header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="nav-label">WORKSPACE</div>
+  <button class="nav-btn active" data-page="dashboard"><span class="nav-icon">⌂</span> Dashboard</button>
+  <button class="nav-btn" data-page="visual"><span class="nav-icon">▧</span> My Visual Library</button>
+  <button class="nav-btn" data-page="faces"><span class="nav-icon">◎</span> Face Reference</button>
+  <button class="nav-btn" data-page="generator"><span class="nav-icon">✧</span> Design Setup</button>
+  <div class="sidebar-note">Referensi disimpan sementara di browser perangkat ini. Untuk penyimpanan cloud dan akses lintas perangkat, kita akan menambahkan backend pada tahap berikutnya.</div>
+</aside>
 
-<main class="container">
-
-<section class="hero">
-<h1>Create Your Holiday Design</h1>
-<p>Buat desain hari besar Indonesia dengan gaya visual dan referensi gambar pilihan Anda.</p>
+<main>
+<section id="page-dashboard">
+  <div class="welcome"><div class="eyebrow">YOUR CREATIVE WORKSPACE</div><h1>Create with a consistent visual identity.</h1><p>Kelola koleksi gaya visual dan foto referensi wajah untuk digunakan kembali saat membuat konten hari besar Indonesia.</p></div>
+  <div class="stats">
+    <div class="stat"><b id="statCollections">0</b><span>Visual collections</span></div>
+    <div class="stat"><b id="statVisuals">0</b><span>Visual reference images</span></div>
+    <div class="stat"><b id="statFaces">0</b><span>Face reference photos</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="row between"><h3>My Visual Library</h3><button class="btn secondary" onclick="showPage('visual')">Manage library →</button></div><p class="muted small">Koleksi referensi gaya fotografi, warna, pencahayaan, dan komposisi.</p><div id="dashboardCollections" class="collection-grid"></div></div>
+    <div class="card"><h3>Face Reference</h3><p class="muted small">Foto wajah yang Anda unggah untuk digunakan sebagai referensi identitas.</p><div id="dashboardFaces"></div><button class="btn secondary" style="margin-top:12px" onclick="showPage('faces')">Manage face photos →</button></div>
+  </div>
+  <div class="card"><h3>Quick start</h3><p class="muted small">Buat koleksi gaya visual terlebih dahulu. Unggah beberapa gambar yang memiliki karakter visual serupa, lalu pilih koleksi tersebut pada halaman Design Setup.</p><button class="btn" onclick="openCollectionModal()">＋ Create visual collection</button></div>
 </section>
 
-<div class="grid">
-
-<section class="card">
-<h3>01. Design Configuration</h3>
-
-<label>Pilih Hari Besar</label>
-<select id="holiday">
-<option>Hari Kemerdekaan RI</option>
-<option>Hari Kartini</option>
-<option>Hari Raya Idul Fitri</option>
-<option>Hari Raya Natal</option>
-<option>Hari Pancasila</option>
-<option>Hari Waisak</option>
-<option>Tahun Baru Imlek</option>
-</select>
-
-<label>Visual Style</label>
-<select id="style">
-<option>Photorealistic Commercial Photography</option>
-<option>Cinematic Photography</option>
-<option>Editorial Photography</option>
-<option>Corporate Photography</option>
-<option>Premium Advertising Photography</option>
-<option>Natural Lifestyle Photography</option>
-</select>
-
-<label>Format Gambar</label>
-<select id="format">
-<option>Instagram Portrait 1080 x 1350</option>
-<option>Instagram Square 1080 x 1080</option>
-<option>Instagram Story 1080 x 1920</option>
-</select>
-
-<label>Tulisan pada Gambar</label>
-<textarea id="message" rows="3">Selamat Memperingati Hari Besar Indonesia</textarea>
-
-<label>Upload Foto Referensi Wajah (Opsional)</label>
-<input type="file" id="faces" accept="image/*" multiple>
-
-<label>Upload Referensi Visual (Multiple Images)</label>
-<div class="upload">
-📷<br>
-<strong>Pilih gambar referensi Anda</strong>
-<p class="small">JPG, PNG, WEBP</p>
-<input type="file" id="references" accept="image/*" multiple>
-</div>
-
-<div id="gallery" class="preview"></div>
-
-<br>
-<button style="width:100%" onclick="createDesign()">Buat Konsep Desain</button>
+<section id="page-visual" class="hidden">
+  <div class="page-head"><div><h2>My Visual Library</h2><p>Bangun perpustakaan gaya visual dari gambar pilihan Anda.</p></div><button class="btn" onclick="openCollectionModal()">＋ New collection</button></div>
+  <div class="card">
+    <div class="row between"><div><h3>Your style collections</h3><p class="muted small">Pilih koleksi untuk melihat dan mengelola gambar referensinya.</p></div><span class="small muted" id="collectionCount">0 collections</span></div>
+    <div id="collectionGrid" class="collection-grid"></div>
+  </div>
+  <div id="collectionDetail" class="card hidden">
+    <div class="row between"><div><h3 id="detailTitle">Collection</h3><p class="muted small" id="detailDescription"></p></div><button class="btn ghost" onclick="closeCollectionDetail()">Close</button></div>
+    <div class="dropzone" id="visualDrop">
+      <div class="big">▧</div><strong>Upload multiple visual references</strong><p>Tarik gambar ke sini atau klik untuk memilih file · JPG, PNG, WEBP</p>
+      <input type="file" id="visualFiles" accept="image/png,image/jpeg,image/webp" multiple>
+    </div>
+    <div class="notice">Gambar akan diperkecil dan dikompres sebelum disimpan di browser agar penggunaan ruang penyimpanan lebih hemat. Simpan file asli Anda sebagai cadangan.</div>
+    <div id="visualThumbs" class="thumb-grid"></div>
+  </div>
 </section>
 
-<section class="card">
-<h3>02. Design Preview</h3>
-<div class="result" id="result">
-<div style="font-size:45px">✦</div>
-<strong>Design Preview</strong>
-<p class="small">Konsep desain Anda akan muncul di sini.</p>
-</div>
-<h3 style="margin-top:22px">03. Design Information</h3>
-<p class="small" id="info">Belum ada desain yang dibuat.</p>
+<section id="page-faces" class="hidden">
+  <div class="page-head"><div><h2>Face Reference Library</h2><p>Kelola foto wajah yang akan dipilih sebagai referensi saat membuat desain.</p></div></div>
+  <div class="card">
+    <h3>Upload face reference photos</h3><p class="muted small">Unggah beberapa foto. Gunakan foto yang jelas, pencahayaan baik, dan wajah terlihat utuh.</p>
+    <div class="dropzone" id="faceDrop"><div class="big">◎</div><strong>Upload multiple face photos</strong><p>Tarik foto ke sini atau klik untuk memilih · JPG, PNG, WEBP</p><input type="file" id="faceFiles" accept="image/png,image/jpeg,image/webp" multiple></div>
+    <div class="notice">Pastikan Anda memiliki izin dari setiap orang yang fotonya diunggah. Foto disimpan di browser perangkat ini, bukan dikirim ke server.</div>
+    <div class="row between" style="margin-top:20px"><h3>Your face photos</h3><span class="small muted" id="faceCount">0 photos</span></div>
+    <div id="faceThumbs" class="thumb-grid"></div>
+  </div>
 </section>
 
-</div>
+<section id="page-generator" class="hidden">
+  <div class="page-head"><div><h2>Design Setup</h2><p>Siapkan konfigurasi desain dan pilih referensi yang akan digunakan.</p></div></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>01. Design configuration</h3>
+      <div class="field"><label for="holiday">Holiday theme</label><select id="holiday"><option>Hari Kemerdekaan RI</option><option>Hari Kartini</option><option>Hari Raya Idul Fitri</option><option>Hari Raya Natal</option><option>Hari Pancasila</option><option>Hari Waisak</option><option>Tahun Baru Imlek</option><option>Hari besar lainnya</option></select></div>
+      <div class="field"><label for="styleSelect">Visual style collection</label><select id="styleSelect"><option value="">No collection selected</option></select></div>
+      <div class="field"><label for="faceSelect">Face reference</label><select id="faceSelect"><option value="">No face reference</option></select></div>
+      <div class="field"><label for="format">Image format</label><select id="format"><option>Instagram Portrait 1080 × 1350</option><option>Instagram Square 1080 × 1080</option><option>Instagram Story 1080 × 1920</option></select></div>
+      <div class="field"><label for="copyText">Text on design</label><textarea id="copyText" rows="3">Selamat Memperingati Hari Besar Indonesia</textarea></div>
+      <button class="btn" style="width:100%;margin-top:16px" onclick="buildDesignBrief()">Build design brief</button>
+    </div>
+    <div class="card"><h3>02. Selected references</h3><div id="selectedReferences" class="empty"><div class="big">✧</div>Pilih koleksi visual dan foto wajah untuk melihat referensi di sini.</div><h3 style="margin-top:22px">03. Design brief</h3><textarea id="designBrief" rows="10" readonly placeholder="Design brief akan muncul setelah Anda menekan Build design brief."></textarea><p class="muted small">Tahap ini menyiapkan brief dan referensi terpilih. AI Image Generation akan dihubungkan pada Phase 3.</p><button class="btn secondary" onclick="copyBrief()">Copy design brief</button></div>
+  </div>
+</section>
+<footer>Indonesia Holiday Creative Studio · Phase 2 · Browser-based temporary storage</footer>
 </main>
+</div>
 
-<footer>
-Indonesia Holiday Creative Studio © 2026
-</footer>
+<div id="collectionModal" class="modal-backdrop hidden">
+ <div class="modal"><h3>Create visual collection</h3><p class="muted small">Beri nama koleksi berdasarkan karakter visual gambar yang akan Anda unggah.</p>
+  <div class="field"><label for="newCollectionName">Collection name</label><input class="input" id="newCollectionName" maxlength="60" placeholder="Contoh: Corporate Blue"></div>
+  <div class="field"><label for="newCollectionDescription">Description (optional)</label><textarea id="newCollectionDescription" rows="3" placeholder="Contoh: Foto corporate dengan dominasi biru, lighting natural, dan komposisi premium."></textarea></div>
+  <div class="modal-actions"><button class="btn ghost" onclick="closeCollectionModal()">Cancel</button><button class="btn" onclick="createCollection()">Create collection</button></div>
+ </div>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
 
 <script>
-const references=document.getElementById('references');
-const gallery=document.getElementById('gallery');
-
-references.addEventListener('change',function(){
-gallery.innerHTML='';
-Array.from(this.files).forEach(file=>{
-const img=document.createElement('img');
-img.src=URL.createObjectURL(file);
-gallery.appendChild(img);
-});
-});
-
-function createDesign(){
-const holiday=document.getElementById('holiday').value;
-const style=document.getElementById('style').value;
-const format=document.getElementById('format').value;
-const message=document.getElementById('message').value;
-const total=references.files.length;
-
-document.getElementById('result').innerHTML=`
-<div style="font-size:40px">✦</div>
-<strong>Konfigurasi Desain Berhasil Dibuat</strong>
-<p>${holiday}</p>
-<p class="small">${style}</p>
-<p class="small">${format}</p>
-<p class="small">${total} gambar referensi dipilih</p>
-<p>${message}</p>
-`;
-document.getElementById('info').innerText=
-'Konfigurasi berhasil. Mesin AI akan dihubungkan pada tahap integrasi berikutnya.';
+const STORAGE_KEY = 'ihcs_phase2_data_v1';
+const DB = {collections:[],faces:[],selectedCollection:null};
+let toastTimer;
+function uid(){return 'id_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
+function notify(message){const el=document.getElementById('toast');el.textContent=message;el.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add('hidden'),3500)}
+function loadData(){
+ try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);DB.collections=Array.isArray(parsed.collections)?parsed.collections:[];DB.faces=Array.isArray(parsed.faces)?parsed.faces:[];DB.selectedCollection=parsed.selectedCollection||null}}
+ catch(e){notify('Data lokal tidak dapat dibaca. Periksa penyimpanan browser Anda.')}
 }
+function saveData(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(DB));return true}
+ catch(e){notify('Penyimpanan browser penuh. Hapus beberapa gambar atau gunakan file yang lebih kecil.');return false}
+}
+function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showPage(page){
+ document.querySelectorAll('[id^="page-"]').forEach(el=>el.classList.add('hidden'));
+ document.getElementById('page-'+page).classList.remove('hidden');
+ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ if(page==='visual')renderVisualPage();if(page==='faces')renderFaces();if(page==='generator')renderGenerator();if(page==='dashboard')renderDashboard();
+}
+document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function openCollectionModal(){document.getElementById('collectionModal').classList.remove('hidden');document.getElementById('newCollectionName').focus()}
+function closeCollectionModal(){document.getElementById('collectionModal').classList.add('hidden')}
+function createCollection(){
+ const name=document.getElementById('newCollectionName').value.trim();
+ if(!name){notify('Nama koleksi wajib diisi.');return}
+ if(DB.collections.some(c=>c.name.toLowerCase()===name.toLowerCase())){notify('Nama koleksi tersebut sudah digunakan.');return}
+ const c={id:uid(),name,description:document.getElementById('newCollectionDescription').value.trim(),images:[],createdAt:new Date().toISOString()};
+ DB.collections.unshift(c);DB.selectedCollection=c.id;
+ if(!saveData()){DB.collections.shift();return}
+ document.getElementById('newCollectionName').value='';document.getElementById('newCollectionDescription').value='';
+ closeCollectionModal();renderAll();openCollection(c.id);notify('Koleksi berhasil dibuat. Sekarang tambahkan gambar referensi.');
+}
+function renderDashboard(){
+ document.getElementById('statCollections').textContent=DB.collections.length;
+ document.getElementById('statVisuals').textContent=DB.collections.reduce((n,c)=>n+c.images.length,0);
+ document.getElementById('statFaces').textContent=DB.faces.length;
+ const dc=document.getElementById('dashboardCollections');
+ dc.innerHTML=DB.collections.length?DB.collections.slice(0,3).map(c=>collectionCardHTML(c,true)).join(''):'<div class="empty" style="grid-column:1/-1"><div class="big">▧</div>Belum ada koleksi visual.<br>Buat koleksi pertama Anda.</div>';
+ const df=document.getElementById('dashboardFaces');
+ df.innerHTML=DB.faces.length?`<div class="thumb-grid">${DB.faces.slice(0,4).map(f=>thumbHTML(f,'face')).join('')}</div>`:'<div class="empty"><div class="big">◎</div>Belum ada foto wajah.</div>';
+}
+function collectionCardHTML(c,compact=false){
+ const imgs=c.images.slice(0,3);
+ const cover=imgs.length?imgs.map(x=>`<img src="${x.data}" alt="">`).join(''):'<div class="empty-cover">▧</div>';
+ return `<article class="collection-card" data-open="${c.id}"><div class="collection-cover">${cover}</div><div class="collection-info"><strong>${escapeHTML(c.name)}</strong><small>${c.images.length} reference image${c.images.length===1?'':'s'}${c.description?' · '+escapeHTML(c.description):''}</small>${compact?'':`<div class="collection-actions"><button class="btn secondary" data-action="open" data-id="${c.id}">Open</button><button class="btn ghost" data-action="rename" data-id="${c.id}">Rename</button><button class="btn danger" data-action="delete-collection" data-id="${c.id}">Delete</button></div>`}</div></article>`;
+}
+function renderVisualPage(){
+ document.getElementById('collectionCount').textContent=DB.collections.length+' collections';
+ document.getElementById('collectionGrid').innerHTML=DB.collections.length?DB.collections.map(c=>collectionCardHTML(c)).join(''):'<div class="empty" style="grid-column:1/-1"><div class="big">▧</div><strong>Belum ada koleksi visual</strong><p class="small">Klik New collection untuk membuat koleksi pertama.</p></div>';
+ document.getElementById('collectionGrid').querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',e=>{if(!e.target.closest('button'))openCollection(el.dataset.open)}));
+ document.getElementById('collectionGrid').querySelectorAll('button[data-action]').forEach(b=>b.addEventListener('click',()=>collectionAction(b.dataset.action,b.dataset.id)));
+ if(DB.selectedCollection&&DB.collections.some(c=>c.id===DB.selectedCollection))openCollection(DB.selectedCollection);else closeCollectionDetail();
+}
+function collectionAction(action,id){
+ const c=DB.collections.find(x=>x.id===id);if(!c)return;
+ if(action==='open')openCollection(id);
+ if(action==='rename'){const n=prompt('Nama baru untuk koleksi:',c.name);if(n&&n.trim()){c.name=n.trim();saveData();renderAll()}}
+ if(action==='delete-collection'&&confirm(`Hapus koleksi "${c.name}" beserta seluruh gambar di dalamnya?`)){DB.collections=DB.collections.filter(x=>x.id!==id);if(DB.selectedCollection===id)DB.selectedCollection=null;saveData();renderAll();notify('Koleksi dihapus.')}
+}
+function openCollection(id){
+ const c=DB.collections.find(x=>x.id===id);if(!c)return;
+ DB.selectedCollection=id;saveData();
+ document.getElementById('collectionDetail').classList.remove('hidden');
+ document.getElementById('detailTitle').textContent=c.name;
+ document.getElementById('detailDescription').textContent=c.description||'Visual reference collection';
+ document.getElementById('visualThumbs').innerHTML=c.images.length?c.images.map(x=>thumbHTML(x,'visual')).join(''):'<div class="empty" style="grid-column:1/-1">Belum ada gambar. Upload beberapa gambar referensi di atas.</div>';
+ document.getElementById('visualThumbs').querySelectorAll('button[data-remove]').forEach(b=>b.addEventListener('click',()=>removeImage('visual',id,b.dataset.remove)));
+ document.getElementById('collectionDetail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function closeCollectionDetail(){document.getElementById('collectionDetail').classList.add('hidden')}
+function thumbHTML(item,type){return `<div class="thumb"><img src="${item.data}" alt="${escapeHTML(item.name)}"><button class="remove-thumb" title="Hapus gambar" data-remove="${item.id}">×</button><div class="thumb-name">${escapeHTML(item.name)}</div></div>`}
+function removeImage(type,collectionId,imageId){
+ if(!confirm('Hapus gambar ini?'))return;
+ if(type==='visual'){const c=DB.collections.find(x=>x.id===collectionId);if(c)c.images=c.images.filter(x=>x.id!==imageId);saveData();renderVisualPage()}
+ else{DB.faces=DB.faces.filter(x=>x.id!==imageId);saveData();renderFaces()}
+ renderDashboard();notify('Gambar berhasil dihapus.');
+}
+function compressImage(file,maxSide=1100,quality=.72){
+ return new Promise((resolve,reject)=>{
+  if(!file.type.startsWith('image/'))return reject(new Error('File bukan gambar.'));
+  const reader=new FileReader();
+  reader.onerror=()=>reject(new Error('File tidak dapat dibaca.'));
+  reader.onload=()=>{
+   const img=new Image();img.onerror=()=>reject(new Error('Gambar tidak valid.'));
+   img.onload=()=>{
+    const scale=Math.min(1,maxSide/Math.max(img.width,img.height));
+    const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+    const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    resolve(canvas.toDataURL('image/jpeg',quality));
+   };img.src=reader.result;
+  };reader.readAsDataURL(file);
+ });
+}
+async function handleVisualFiles(files){
+ const c=DB.collections.find(x=>x.id===DB.selectedCollection);if(!c){notify('Pilih atau buat koleksi terlebih dahulu.');return}
+ const batch=Array.from(files).filter(f=>f.type.startsWith('image/'));if(!batch.length){notify('Pilih file gambar yang valid.');return}
+ let added=0;
+ for(const file of batch){
+  try{const data=await compressImage(file);const item={id:uid(),name:file.name,data,addedAt:new Date().toISOString()};c.images.push(item);
+   if(!saveData()){c.images.pop();break}added++;
+  }catch(e){notify(file.name+': '+e.message)}
+ }
+ openCollection(c.id);renderDashboard();renderVisualPage();if(added)notify(added+' gambar berhasil ditambahkan ke koleksi.');
+}
+async function handleFaceFiles(files){
+ const batch=Array.from(files).filter(f=>f.type.startsWith('image/'));if(!batch.length){notify('Pilih file gambar yang valid.');return}
+ let added=0;
+ for(const file of batch){
+  try{const data=await compressImage(file,900,.68);const item={id:uid(),name:file.name,data,addedAt:new Date().toISOString()};DB.faces.push(item);
+   if(!saveData()){DB.faces.pop();break}added++;
+  }catch(e){notify(file.name+': '+e.message)}
+ }
+ renderFaces();renderDashboard();renderGenerator();if(added)notify(added+' foto wajah berhasil disimpan.');
+}
+function renderFaces(){
+ document.getElementById('faceCount').textContent=DB.faces.length+' photos';
+ document.getElementById('faceThumbs').innerHTML=DB.faces.length?DB.faces.map(x=>thumbHTML(x,'face')).join(''):'<div class="empty" style="grid-column:1/-1"><div class="big">◎</div>Belum ada foto wajah yang diunggah.</div>';
+ document.getElementById('faceThumbs').querySelectorAll('button[data-remove]').forEach(b=>b.addEventListener('click',()=>removeImage('face',null,b.dataset.remove)));
+}
+function renderGenerator(){
+ const ss=document.getElementById('styleSelect'),fs=document.getElementById('faceSelect');
+ const oldS=ss.value,oldF=fs.value;
+ ss.innerHTML='<option value="">No collection selected</option>'+DB.collections.map(c=>`<option value="${c.id}">${escapeHTML(c.name)} (${c.images.length} images)</option>`).join('');
+ fs.innerHTML='<option value="">No face reference</option>'+DB.faces.map(f=>`<option value="${f.id}">${escapeHTML(f.name)}</option>`).join('');
+ if(DB.collections.some(c=>c.id===oldS))ss.value=oldS;else if(DB.collections.some(c=>c.id===DB.selectedCollection))ss.value=DB.selectedCollection;
+ if(DB.faces.some(f=>f.id===oldF))fs.value=oldF;
+ updateSelectedReferences();
+ ss.onchange=updateSelectedReferences;fs.onchange=updateSelectedReferences;
+}
+function updateSelectedReferences(){
+ const c=DB.collections.find(x=>x.id===document.getElementById('styleSelect').value);
+ const f=DB.faces.find(x=>x.id===document.getElementById('faceSelect').value);
+ let html='';
+ if(c)html+=`<strong>${escapeHTML(c.name)}</strong><div class="thumb-grid">${c.images.slice(0,6).map(x=>`<div class="thumb"><img src="${x.data}" alt=""><div class="thumb-name">${escapeHTML(x.name)}</div></div>`).join('')}</div><p class="small muted">${c.images.length} visual reference(s) selected</p>`;
+ if(f)html+=`<div style="margin-top:15px"><strong>Face reference</strong><div class="thumb-grid"><div class="thumb"><img src="${f.data}" alt=""><div class="thumb-name">${escapeHTML(f.name)}</div></div></div></div>`;
+ document.getElementById('selectedReferences').innerHTML=html||'<div class="empty"><div class="big">✧</div>Pilih koleksi visual dan foto wajah untuk melihat referensi di sini.</div>';
+}
+function buildDesignBrief(){
+ const holiday=document.getElementById('holiday').value,styleId=document.getElementById('styleSelect').value,faceId=document.getElementById('faceSelect').value;
+ const c=DB.collections.find(x=>x.id===styleId),f=DB.faces.find(x=>x.id===faceId);
+ const format=document.getElementById('format').value,copy=document.getElementById('copyText').value.trim();
+ const lines=[
+ 'INDONESIA HOLIDAY CREATIVE STUDIO — DESIGN BRIEF',
+ 'Holiday theme: '+holiday,
+ 'Visual style collection: '+(c?c.name:'Not selected'),
+ 'Visual reference count: '+(c?c.images.length:0),
+ 'Visual style description: '+(c&&c.description?c.description:'Analyze the uploaded reference images for color palette, lighting, composition, camera angle, texture, depth of field, and overall photographic character.'),
+ 'Face reference: '+(f?f.name:'Not selected'),
+ 'Image format: '+format,
+ 'Text on design: '+(copy||'No text supplied'),
+ '',
+ 'VISUAL DIRECTION:',
+ 'Create a photorealistic commercial photograph. Use the selected visual references as actual image inputs when connected to the image generation model. Match their visual character while creating an original composition for the selected holiday.',
+ 'Preserve realistic anatomy, natural skin texture, believable lighting, accurate proportions, and professional photographic composition.',
+ 'Do not invent logos or render critical typography inside the generated image. Add approved logo and final typography in the design layout stage.',
+ '',
+ 'IMPORTANT: This is a prepared design brief only. Image generation is not connected in this Phase 2 build.'
+ ];
+ document.getElementById('designBrief').value=lines.join('\n');notify('Design brief berhasil dibuat.');
+}
+function copyBrief(){const el=document.getElementById('designBrief');if(!el.value){notify('Buat design brief terlebih dahulu.');return}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.value).then(()=>notify('Design brief disalin.')).catch(()=>fallbackCopy(el))}else fallbackCopy(el)}
+function fallbackCopy(el){el.select();document.execCommand('copy');notify('Design brief disalin.')}
+function renderAll(){renderDashboard();renderVisualPage();renderFaces();renderGenerator()}
+function setupDropzone(zoneId,inputId,handler){
+ const zone=document.getElementById(zoneId),input=document.getElementById(inputId);
+ zone.addEventListener('click',e=>{if(e.target!==input)input.click()});
+ input.addEventListener('change',()=>{handler(input.files);input.value=''});
+ zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag')});
+ zone.addEventListener('dragleave',()=>zone.classList.remove('drag'));
+ zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag');handler(e.dataTransfer.files)});
+}
+setupDropzone('visualDrop','visualFiles',handleVisualFiles);
+setupDropzone('faceDrop','faceFiles',handleFaceFiles);
+loadData();renderAll();
 </script>
 </body>
 </html>

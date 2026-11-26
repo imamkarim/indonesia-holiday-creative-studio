@@ -56,7 +56,7 @@ footer{text-align:center;color:#9aa6b6;font-size:11px;padding:22px}
     <div class="card"><div class="row between"><h3>My Visual Library</h3><button class="btn secondary" onclick="showPage('visual')">Manage library →</button></div><p class="muted small">Koleksi referensi gaya fotografi, warna, pencahayaan, dan komposisi.</p><div id="dashboardCollections" class="collection-grid"></div></div>
     <div class="card"><h3>Face Reference</h3><p class="muted small">Foto wajah yang Anda unggah untuk digunakan sebagai referensi identitas.</p><div id="dashboardFaces"></div><button class="btn secondary" style="margin-top:12px" onclick="showPage('faces')">Manage face photos →</button></div>
   </div>
-  <div class="card"><h3>Quick start</h3><p class="muted small">Buat koleksi gaya visual terlebih dahulu. Unggah beberapa gambar yang memiliki karakter visual serupa, lalu pilih koleksi tersebut pada halaman Design Setup.</p><button class="btn" onclick="openCollectionModal()">＋ Create visual collection</button></div>
+  <div class="card"><h3>Quick start & library backup</h3><p class="muted small">Buat koleksi gaya visual, lalu cadangkan koleksi dan foto wajah sebelum berpindah domain atau perangkat.</p><div class="row"><button class="btn" onclick="openCollectionModal()">＋ Create visual collection</button><button class="btn secondary" onclick="exportLibrary()">Export library backup</button><button class="btn ghost" onclick="document.getElementById('importLibraryFile').click()">Import backup</button><input id="importLibraryFile" type="file" accept="application/json,.json" class="hidden" onchange="importLibrary(event)"></div><p class="muted small" style="margin-top:10px">Backup berisi gambar referensi dalam format terkompresi. Simpan file JSON ini dengan aman.</p></div>
 </section>
 
 <section id="page-visual" class="hidden">
@@ -88,18 +88,34 @@ footer{text-align:center;color:#9aa6b6;font-size:11px;padding:22px}
 </section>
 
 <section id="page-generator" class="hidden">
-  <div class="page-head"><div><h2>Design Setup</h2><p>Siapkan konfigurasi desain dan pilih referensi yang akan digunakan.</p></div></div>
+  <div class="page-head"><div><h2>AI Image Generator</h2><p>Buat gambar baru menggunakan koleksi visual dan foto wajah pilihan Anda.</p></div><span class="small muted">PHASE 3 · AI ENGINE</span></div>
   <div class="grid-2">
     <div class="card">
       <h3>01. Design configuration</h3>
       <div class="field"><label for="holiday">Holiday theme</label><select id="holiday"><option>Hari Kemerdekaan RI</option><option>Hari Kartini</option><option>Hari Raya Idul Fitri</option><option>Hari Raya Natal</option><option>Hari Pancasila</option><option>Hari Waisak</option><option>Tahun Baru Imlek</option><option>Hari besar lainnya</option></select></div>
       <div class="field"><label for="styleSelect">Visual style collection</label><select id="styleSelect"><option value="">No collection selected</option></select></div>
-      <div class="field"><label for="faceSelect">Face reference</label><select id="faceSelect"><option value="">No face reference</option></select></div>
-      <div class="field"><label for="format">Image format</label><select id="format"><option>Instagram Portrait 1080 × 1350</option><option>Instagram Square 1080 × 1080</option><option>Instagram Story 1080 × 1920</option></select></div>
-      <div class="field"><label for="copyText">Text on design</label><textarea id="copyText" rows="3">Selamat Memperingati Hari Besar Indonesia</textarea></div>
-      <button class="btn" style="width:100%;margin-top:16px" onclick="buildDesignBrief()">Build design brief</button>
+      <div class="field"><label for="faceSelect">Face reference (optional)</label><select id="faceSelect"><option value="">No face reference</option></select></div>
+      <div class="field"><label for="format">Image format</label><select id="format"><option>Instagram Portrait 1080 × 1350 (4:5)</option><option>Instagram Square 1080 × 1080 (1:1)</option><option>Instagram Story 1080 × 1920 (9:16)</option></select></div>
+      <div class="field"><label for="copyText">Text on design</label><textarea id="copyText" rows="2">Selamat Memperingati Hari Besar Indonesia</textarea></div>
+      <div class="field"><label for="extraPrompt">Additional creative direction (optional)</label><textarea id="extraPrompt" rows="3" placeholder="Contoh: Tampilkan suasana kebersamaan keluarga Indonesia, elegan, hangat, dan tidak terlalu ramai."></textarea></div>
+      <div class="notice">Maksimal 5 foto visual dan 1 foto wajah akan dikirim sebagai referensi ke OpenAI saat Anda menekan Generate. Pastikan Anda memiliki izin penggunaan foto wajah. Gambar referensi diproses oleh layanan AI, bukan hanya di browser.</div>
+      <button class="btn" id="generateBtn" style="width:100%;margin-top:16px" onclick="generateImage()">✧ Generate AI Image</button>
+      <button class="btn secondary" style="width:100%;margin-top:9px" onclick="buildDesignBrief()">Build / refresh design brief</button>
+      <div id="generationStatus" class="small muted" style="margin-top:12px" aria-live="polite"></div>
     </div>
-    <div class="card"><h3>02. Selected references</h3><div id="selectedReferences" class="empty"><div class="big">✧</div>Pilih koleksi visual dan foto wajah untuk melihat referensi di sini.</div><h3 style="margin-top:22px">03. Design brief</h3><textarea id="designBrief" rows="10" readonly placeholder="Design brief akan muncul setelah Anda menekan Build design brief."></textarea><p class="muted small">Tahap ini menyiapkan brief dan referensi terpilih. AI Image Generation akan dihubungkan pada Phase 3.</p><button class="btn secondary" onclick="copyBrief()">Copy design brief</button></div>
+    <div class="card">
+      <h3>02. Selected references</h3>
+      <div id="selectedReferences" class="empty"><div class="big">✧</div>Pilih koleksi visual dan foto wajah untuk melihat referensi di sini.</div>
+      <h3 style="margin-top:22px">03. Generated image</h3>
+      <div id="imageOutput" class="empty"><div class="big">▧</div>Hasil gambar AI akan muncul di sini.</div>
+      <div id="imageActions" class="row hidden" style="margin-top:12px">
+        <button class="btn" onclick="downloadGenerated()">Download image</button>
+        <button class="btn secondary" onclick="generateImage()">Regenerate</button>
+      </div>
+      <h3 style="margin-top:22px">04. Design brief</h3>
+      <textarea id="designBrief" rows="7" readonly placeholder="Design brief akan muncul setelah Anda menekan Build design brief."></textarea>
+      <button class="btn secondary" style="margin-top:9px" onclick="copyBrief()">Copy design brief</button>
+    </div>
   </div>
 </section>
 <footer>Indonesia Holiday Creative Studio · Phase 2 · Browser-based temporary storage</footer>
@@ -258,27 +274,126 @@ function buildDesignBrief(){
  const holiday=document.getElementById('holiday').value,styleId=document.getElementById('styleSelect').value,faceId=document.getElementById('faceSelect').value;
  const c=DB.collections.find(x=>x.id===styleId),f=DB.faces.find(x=>x.id===faceId);
  const format=document.getElementById('format').value,copy=document.getElementById('copyText').value.trim();
+ const extra=document.getElementById('extraPrompt').value.trim();
  const lines=[
  'INDONESIA HOLIDAY CREATIVE STUDIO — DESIGN BRIEF',
  'Holiday theme: '+holiday,
  'Visual style collection: '+(c?c.name:'Not selected'),
- 'Visual reference count: '+(c?c.images.length:0),
- 'Visual style description: '+(c&&c.description?c.description:'Analyze the uploaded reference images for color palette, lighting, composition, camera angle, texture, depth of field, and overall photographic character.'),
+ 'Visual reference count available: '+(c?c.images.length:0),
  'Face reference: '+(f?f.name:'Not selected'),
  'Image format: '+format,
- 'Text on design: '+(copy||'No text supplied'),
+ 'Text to place in final layout: '+(copy||'No text supplied'),
+ 'Additional direction: '+(extra||'None'),
  '',
  'VISUAL DIRECTION:',
- 'Create a photorealistic commercial photograph. Use the selected visual references as actual image inputs when connected to the image generation model. Match their visual character while creating an original composition for the selected holiday.',
- 'Preserve realistic anatomy, natural skin texture, believable lighting, accurate proportions, and professional photographic composition.',
- 'Do not invent logos or render critical typography inside the generated image. Add approved logo and final typography in the design layout stage.',
+ 'Create a premium, photorealistic commercial photograph. Use uploaded visual references as image inputs and match their photographic character: color palette, lighting, composition, camera perspective, depth of field, and texture. Create an original scene, not a copy of any reference.',
+ 'If a face reference is supplied, use it as a visual identity reference with best-effort likeness. Do not claim exact identity preservation.',
+ 'Use realistic anatomy, natural skin texture, believable shadows, authentic Indonesian context, and professional advertising quality.',
+ 'Keep clear negative space for typography. Avoid gibberish text, watermarks, invented logos, distorted hands, plastic skin, and overly synthetic AI aesthetics.',
  '',
- 'IMPORTANT: This is a prepared design brief only. Image generation is not connected in this Phase 2 build.'
+ 'The selected text is intended for a later design/layout step. Image generation may not render the wording perfectly.'
  ];
- document.getElementById('designBrief').value=lines.join('\n');notify('Design brief berhasil dibuat.');
+ document.getElementById('designBrief').value=lines.join('\n');
+ return lines.join('\n');
+}
+const MAX_REFERENCE_IMAGES = 5;
+let latestGeneratedDataUrl = null;
+function setGenerationStatus(message,isError=false){
+ const el=document.getElementById('generationStatus');el.textContent=message;el.style.color=isError?'#b4232d':'';
+}
+function dataUrlToBlob(dataUrl){
+ const parts=dataUrl.split(',');
+ const mime=(parts[0].match(/:(.*?);/)||[])[1]||'image/jpeg';
+ const binary=atob(parts[1]);const bytes=new Uint8Array(binary.length);
+ for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+ return new Blob([bytes],{type:mime});
+}
+async function shrinkReference(dataUrl,maxSide=640,quality=.55){
+ return new Promise((resolve,reject)=>{
+  const img=new Image();img.onerror=()=>reject(new Error('Gambar referensi tidak dapat dibaca.'));
+  img.onload=()=>{
+   const scale=Math.min(1,maxSide/Math.max(img.width,img.height));
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+   resolve(canvas.toDataURL('image/jpeg',quality));
+  };img.src=dataUrl;
+ });
+}
+async function generateImage(){
+ const styleId=document.getElementById('styleSelect').value;
+ const faceId=document.getElementById('faceSelect').value;
+ const collection=DB.collections.find(c=>c.id===styleId);
+ const face=DB.faces.find(f=>f.id===faceId);
+ if(!collection&&!face){if(!confirm('Anda belum memilih referensi visual maupun foto wajah. Tetap lanjut membuat gambar dari prompt?'))return}
+ const btn=document.getElementById('generateBtn');btn.disabled=true;btn.textContent='Generating…';
+ document.getElementById('imageActions').classList.add('hidden');
+ document.getElementById('imageOutput').innerHTML='<div class="big">✧</div><strong>AI sedang membuat gambar…</strong><p class="small muted">Proses dapat memerlukan waktu beberapa menit. Jangan tutup halaman.</p>';
+ setGenerationStatus('Menyiapkan gambar referensi…');
+ try{
+  const refs=[];
+  if(collection){
+   const chosen=collection.images.slice(0,MAX_REFERENCE_IMAGES);
+   for(const item of chosen){refs.push({name:item.name,data:await shrinkReference(item.data)});}
+  }
+  if(face){refs.push({name:face.name,data:await shrinkReference(face.data,640,.58),kind:'face'});}
+  const format=document.getElementById('format').value;
+  const brief=buildDesignBrief();
+  const payload={
+   prompt:brief,
+   holiday:document.getElementById('holiday').value,
+   format,
+   references:refs
+  };
+  setGenerationStatus('Mengirim prompt dan '+refs.length+' gambar referensi ke AI…');
+  const response=await fetch('/api/generate',{
+   method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
+  });
+  const result=await response.json().catch(()=>({error:'Server mengembalikan respons yang tidak dapat dibaca.'}));
+  if(!response.ok)throw new Error(result.error||'Permintaan gagal. Periksa konfigurasi backend.');
+  if(!result.image)throw new Error('AI tidak mengembalikan gambar.');
+  latestGeneratedDataUrl='data:'+result.mimeType+';base64,'+result.image;
+  document.getElementById('imageOutput').innerHTML=`<img class="preview-img" style="width:100%;max-height:620px" src="${latestGeneratedDataUrl}" alt="AI generated design"><p class="small muted">Generated with ${escapeHTML(result.model||'OpenAI Image API')}</p>`;
+  document.getElementById('imageActions').classList.remove('hidden');
+  setGenerationStatus('Gambar berhasil dibuat. Anda dapat mengunduh atau membuat variasi baru.');
+  notify('AI image berhasil dibuat.');
+ }catch(error){
+  document.getElementById('imageOutput').innerHTML='<div class="empty"><div class="big">!</div>Gambar belum berhasil dibuat.</div>';
+  setGenerationStatus(error.message,true);notify(error.message);
+ }finally{
+  btn.disabled=false;btn.textContent='✧ Generate AI Image';
+ }
+}
+function downloadGenerated(){
+ if(!latestGeneratedDataUrl){notify('Belum ada gambar untuk diunduh.');return}
+ const a=document.createElement('a');a.href=latestGeneratedDataUrl;a.download='indonesia-holiday-creative-studio.png';document.body.appendChild(a);a.click();a.remove();
 }
 function copyBrief(){const el=document.getElementById('designBrief');if(!el.value){notify('Buat design brief terlebih dahulu.');return}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.value).then(()=>notify('Design brief disalin.')).catch(()=>fallbackCopy(el))}else fallbackCopy(el)}
 function fallbackCopy(el){el.select();document.execCommand('copy');notify('Design brief disalin.')}
+function exportLibrary(){
+ const payload={app:'Indonesia Holiday Creative Studio',version:1,exportedAt:new Date().toISOString(),collections:DB.collections,faces:DB.faces,selectedCollection:DB.selectedCollection};
+ const blob=new Blob([JSON.stringify(payload)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ihcs-visual-library-backup.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+ notify('Backup library berhasil diunduh.');
+}
+function importLibrary(event){
+ const file=event.target.files&&event.target.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   if(!Array.isArray(data.collections)||!Array.isArray(data.faces))throw new Error('Format backup tidak sesuai.');
+   if(!confirm('Import backup akan mengganti koleksi dan foto wajah yang tersimpan di browser ini. Lanjutkan?'))return;
+   const previous={collections:DB.collections,faces:DB.faces,selectedCollection:DB.selectedCollection};
+   DB.collections=data.collections;DB.faces=data.faces;DB.selectedCollection=data.selectedCollection||null;
+   if(!saveData()){DB.collections=previous.collections;DB.faces=previous.faces;DB.selectedCollection=previous.selectedCollection;return}
+   renderAll();notify('Backup berhasil diimpor.');
+  }catch(e){notify(e.message||'File backup tidak valid.')}
+  finally{event.target.value=''}
+ };
+ reader.onerror=()=>notify('File backup tidak dapat dibaca.');
+ reader.readAsText(file);
+}
 function renderAll(){renderDashboard();renderVisualPage();renderFaces();renderGenerator()}
 function setupDropzone(zoneId,inputId,handler){
  const zone=document.getElementById(zoneId),input=document.getElementById(inputId);
